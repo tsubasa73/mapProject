@@ -1,0 +1,238 @@
+body {
+  font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック";
+}
+
+#topbar {
+  height: 100px;
+}
+
+#sidebar {
+width: 300px;
+min-height: 700px;
+height: 100%;
+float: left;
+background-color: #f4f2ef;
+}
+
+#map { 
+width: auto;
+min-height: 700px;
+height: auto;
+margin: 0 auto;
+}
+
+.resultContainer {
+  width: 300px;
+font-size: 10px;
+color: #3d3935;
+word-break: normal;
+margin: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+float: left;
+box-sizing: border-box;
+background-color: #f4f2ef;
+padding: 20px 20px 0;
+}
+
+.resultContents {
+  width: 260px;
+font-size: 10px;
+color: #3d3935;
+word-break: normal;
+padding: 0;
+margin: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+float: left;
+}
+
+.searchForm {
+  width: 260px;
+color: #3d3935;
+word-break: normal;
+font-size: 120%;
+height: 50px;
+margin: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+padding: 15px 0;
+}
+
+li.item {
+color: #3d3935;
+word-break: normal;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+list-style: none;
+font-size: 100%;
+margin: 0;
+line-height: 1.5;
+padding: 13px 0;
+cursor: pointer;
+background-color: #fff;
+background: url("/static/images/list-border.png") left bottom no-repeat;
+}
+
+li.item.is-selected .detailContainer {
+color: #3d3935;
+word-break: normal;
+list-style: none;
+font-size: 100%;
+line-height: 1.5;
+cursor: default;
+padding: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+margin: 0 15px;
+margin-left: 0;
+border-left: 10px solid #3d3935;
+background-color: #fff;
+}
+
+.resultStores {
+  width: 300px;
+color: #3d3935;
+word-break: normal;
+font-size: 120%;
+list-style: none;
+line-height: 1.5;
+padding: 0;
+margin: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background-color: #fff;
+}
+
+.storeName {
+color: #3d3935;
+word-break: normal;
+list-style: none;
+font-style: normal;
+outline: 0;
+border: none;
+background: none;
+margin: 0;
+font-size: 14px;
+line-height: 1.5;
+font-weight: bold;
+padding: 3px 0 0 15px;
+margin-bottom: 5px;
+}
+
+.storeAddress {
+color: #3d3935;
+word-break: normal;
+list-style: none;
+padding: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+margin: 0;
+font-size: 12px;
+line-height: 1.33;
+padding-left: 15px;
+margin-bottom: 0;
+}
+
+.storeSearchButtons.is-selected {
+color: #3d3935;
+word-break: normal;
+list-style: none;
+font-size: 100%;
+line-height: 1.5;
+cursor: default;
+padding: 0;
+margin: 0;
+font-style: normal;
+font-weight: normal;
+outline: 0;
+border: none;
+background: none;
+overflow: hidden;
+text-align: right;
+letter-spacing: -1em;
+padding-left: 15px;
+display: block;
+}
+
+.storeSearchButtons a {
+word-break: normal;
+list-style: none;
+font-size: 12px;
+text-align: center;
+line-height: 35px;
+cursor: pointer;
+letter-spacing: normal;
+padding: 0;
+margin: 0;
+font-style: normal;
+outline: 0;
+background: none;
+border: 0;
+text-decoration: none;
+display: block;
+width: 100px;
+height: 35px;
+color: #fff;
+font-weight: bold;
+background-color: #c6893f;
+border-radius: 4px;
+}
+
+.searchButtonDetail {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+/*フォーム全体*/
+#form1{
+  position:relative;/*フォームの相対位置*/	
+  max-width:270px;/*フォームのサイズ*/
+  margin-bottom:10px;/*フォームの下に余白*/	 	
+}
+/*検索ボックス*/
+#sbox{
+  position:absolute;/*フォームの絶対位置*/	
+  left:2px;
+  top:0; 	
+  outline:0;/*クリック時の青い枠線消す*/	
+  height:40px;/*検索ボックスの高さ*/	
+  padding:0 10px;/*テキスト位置調整*/	 
+  border: 1px solid;
+  border-radius:2px;/*検索ボックスの角を丸める*/		
+  background:#fff;/*検索ボックスの背景カラー*/		
+ }
+/*検索ボタン*/
+#sbtn{
+  width:70px;/*検索ボタンの横幅*/ 
+  height:42px;/*検索ボタンの縦幅*/ 
+  position:absolute;/*検索ボタンの絶対位置*/  
+  right:10px;/*検索ボタンの位置調整*/  
+  top:0;
+  cursor: pointer;
+  border-radius:0 2px 2px 0;/*検索ボタンの角を丸める*/ 
+  background:#7fbfff;/*検索ボタンの背景カラー*/ 
+  border:none;/*検索ボタンの枠線を消す*/ 
+  color:#fff;/*検索ボタンのテキストカラー*/ 
+  font-weight:bold;/*検索ボタンのテキスト太字*/ 
+  font-size:16px;/*検索ボタンのフォントサイズ*/ 
+}
