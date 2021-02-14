@@ -1,0 +1,21 @@
+<div class="ui grid stackable">
+  <div class="eleven wide column">
+    <div class="ui breadcrumb">
+      <a href="{% url 'map:window' %}" class="section">TOP</a>
+      <i class="right angle icon divider"></i>
+      <a class="active section">トピック作成</a>
+    </div>
+    <div class="ui segment">
+      <div class="content">
+        <div class="header"><h3>トピック作成</h3></div>
+        <form class="" action="" method="POST">{% csrf_token %}
+          {{ form.as_p }}
+          <button class="ui button orange" type="submit" name="next" value="confirm">確認画面へ</button>
+          <input type="hidden" name="lat" value="{{ lat }}">
+          <input type="hidden" name="lng" value="{{ lng }}">
+          <input type="hidden" name="address" value="{{ address }}">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

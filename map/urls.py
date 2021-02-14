@@ -1,10 +1,13 @@
 from django.urls import path
 
-from .views import Index, MapWindow, AjaxResponse
+from .views import MapIndex, MapWindow, MapAjax, MapInput, MapComplete, MapDetail
 
 app_name = 'map'
 urlpatterns = [
-    path('', Index.as_view(), name='index'),
+    path('', MapIndex.as_view(), name='index'),
     path('window/', MapWindow.as_view(), name='window'),
-    path('window/ajax/', AjaxResponse.as_view(), name='ajax'),
+    path('ajax/', MapAjax.as_view(), name='ajax'),
+    path('input/', MapInput.as_view(), name='input'),
+    path('complete/', MapComplete.as_view(), name='complete'),
+    path('detail/', MapDetail.as_view(), name='detail'),
 ]

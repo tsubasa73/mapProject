@@ -100,9 +100,18 @@ function setClickedMarker(lat_lng, address){
     animation: google.maps.Animation.DROP,
   });
 
+  // 情報ウィンドウの中身を作成
+  info_str = `<div>${address}</div>
+  <form action="{% url 'map:input' %}" method="POST">{% csrf_token %}
+    <input type="hidden" name="lat" value="${lat_lng.lat()}">
+    <input type="hidden" name="lng" value="${lat_lng.lng()}">
+    <input type="hidden" name="address" value="${address}">
+    <button type="submit" name="next" >ここで日記を投稿</button>
+  </form>
+  `
   // 情報ウィンドウ作成
   infoWindow = new google.maps.InfoWindow({
-    content: '<div>' + address + '</div>'
+    content: '<div>' + info_str + '</div>'
   });
 
   // マーカーにクリックイベント登録
@@ -170,8 +179,8 @@ function makeNoteList(index, value) {
       <p class="noteTitle">${value['title']}</p>
       <p class="noteAddress">${value['address']}</p>
       <div class="detailInfo" style="display: none;">
-        <p class="noteDetail">Posted date：${value['post_date']}</p>
-        <p class="noteDetail">Contributor：${value['post_user']}</p>
+        <p class="noteDetail">posted date：${value['posted_date']}</p>
+        <p class="noteDetail">author：${value['author']}</p>
           <div class="noteSearchButton" style="display: none;">
           <p class="noteSearchButtonDetail"><a onclick="to_detail(${value['id']})">詳細</a></p>
         </div>
@@ -201,7 +210,7 @@ function setPointMarker() {
       map_ne_lng: map_ne_lng,
       map_sw_lng: map_sw_lng,
     },
-    timeout: 1000,
+    timeout: 3000,
     error: function () {
       alert("情報の読み込みに失敗しました");
     },
@@ -265,16 +274,16 @@ function initMap() {
   };
   map = new google.maps.Map(document.getElementById('map'), opts);
 
-  // クリックイベントを追加
+  // マップにクリックイベントを追加
   map.addListener('click', e => getClickedAddress(e.latLng, setClickedMarker));
 
   // 地図の表示領域が変更されたら表示領域の座標取得＆マーカー表示
   map.addListener('idle', setPointMarker);
 
-  // マーカー追加
+  // 現在地にマーカー配置
   marker = new google.maps.Marker({
-    position: center, // マーカーを立てる位置を指定
-    map: map, // マーカーを立てる地図を指定
+    position: center,
+    map: map,
     icon: {
       url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
       scaledSize: new google.maps.Size(50, 50)
@@ -286,15 +295,15 @@ function initMap() {
   });
   infoWindow.open(map, marker);
 
-  // 地名検索テキストボックスの要素を取得
+  // 検索ボックスの要素を取得
   var input = document.getElementById('placeSearchTextBox');
   // オートコンプリートのオプション
   var options = {
       types: ['(regions)'],
       componentRestrictions: {country: 'jp'}
   };
+  // 検索ボックスにオートコンプリート機能を追加
   autocomplete = new google.maps.places.Autocomplete(input, options);
-
   autocomplete.addListener('place_changed', function() {
     input.value = this.getPlace().name;
   });
