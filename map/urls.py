@@ -9,5 +9,5 @@ urlpatterns = [
     path('ajax/', MapAjax.as_view(), name='ajax'),
     path('input/', MapInput.as_view(), name='input'),
     path('complete/', MapComplete.as_view(), name='complete'),
-    path('detail/', MapDetail.as_view(), name='detail'),
+    path('detail/<int:pk>', MapDetail.as_view(), name='detail'),
 ]

@@ -5,6 +5,22 @@
   <title>Title</title>
 </head>
 <body>
-
+  <h1>DetailView詳細画面</h1>
+  <table border="1">
+    <tr>
+      <th>title</th>
+      <th>text</th>
+      <th>image</th>
+      <th>author</th>
+      <th>posted_date</th>
+    </tr>
+    <tr>
+      <td>{{ object.title }}</td>
+      <td>{{ object.text }}</td>
+      <td>{{ object.image }}</td>
+      <td>{{ object.author }}</td>
+      <td>{{ object.posted_date }}</td>
+    </tr>
+  </table>
 </body>
 </html>

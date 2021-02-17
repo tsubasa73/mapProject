@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import View, TemplateView, FormView, CreateView, DetailView
+from django.views.generic import View, TemplateView, CreateView, DetailView
 from django.contrib.gis.geos import Polygon, Point
 
 from .forms import NoteForm
