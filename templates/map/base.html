@@ -1,44 +1,35 @@
 <!DOCTYPE html>
-
 {% load static %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="content-language" content="ja">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title>
-  </title>
-</head>
-<body>
-  <div class="ui stackable inverted menu">
-    <div class="header item">
-      IT学習ちゃんねる
-    </div>
-    <a class="item">
-      このサイトはなに？
-    </a>
-    <div class="right menu">
-      <a class="item">
-        Log in
-      </a>
-      <a class="item">
-        Sign up
-      </a>
-    </div>
-  </div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GeNote</title>
 
-  <div class="ui container" style="min-height:100vh;">
-    {% block content %}
-    {% endblock %}
-  </div>
-  <div class="ui inverted stackable footer segment">
-    <div class="ui container center aligned">
-      <div class="ui horizontal inverted small divided link list">
-        <a class="item">© 2019 Django学習ちゃんねる(仮)</a>
-        <a class="item">利用規約</a>
-        <a class="item">プライバシーポリシー</a>
-      </div>
-    </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-</body>
+    <!-- Common CSS -->
+    <link href="{% static 'map/bootstrap/css/mapwindow.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="header-menu">
+      <h1>
+        <a href="{% url 'map:window'%}">GeNote</a>
+      </h1>
+      <nav>
+        <ul>
+          <li><a href="#">ようこそ　{{ user }}さん</a></li>
+          <li><a class="logoutButton" href="#">ログアウト</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    {% block contents %}
+    {% endblock contents %}
+
+    <footer>
+      <p>&copy; 2021 Tsubasa Matsuoka.</p>
+    </footer>
+
+  </body>
+</html>

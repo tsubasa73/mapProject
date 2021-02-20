@@ -1,21 +1,24 @@
-<div class="ui grid stackable">
-  <div class="eleven wide column">
-    <div class="ui breadcrumb">
-      <a href="{% url 'map:window' %}" class="section">TOP</a>
-      <i class="right angle icon divider"></i>
-      <a class="active section">トピック作成</a>
+{% extends 'map/base.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="contents">
+  <div class="inputFormContainer">
+  <form class="inputForm" action="" method="POST">{% csrf_token %}
+    {% for field in form %}
+    <div class="inputs">
+      <label class="label">{{ field.label }}</label>
+      {{ field }}
     </div>
-    <div class="ui segment">
-      <div class="content">
-        <div class="header"><h3>トピック作成</h3></div>
-        <form class="" action="" method="POST">{% csrf_token %}
-          {{ form.as_p }}
-          <button class="ui button orange" type="submit" name="next" value="confirm">確認画面へ</button>
-          <input type="hidden" name="lat" value="{{ lat }}">
-          <input type="hidden" name="lng" value="{{ lng }}">
-          <input type="hidden" name="address" value="{{ address }}">
-        </form>
-      </div>
+    {% endfor %}
+    <div class="btn-area">
+      <a class="backButton" onclick="location.href='/map/window/';">戻る</a>
+      <button class="confirmButton" type="submit" name="next" value="confirm">確認画面へ</button>
     </div>
+    <input type="hidden" name="lat" value="{{ lat }}">
+    <input type="hidden" name="lng" value="{{ lng }}">
+    <input type="hidden" name="address" value="{{ address }}">
+  </form>
   </div>
 </div>
+{% endblock contents %}

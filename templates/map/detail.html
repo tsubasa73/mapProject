@@ -1,26 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <h1>DetailView詳細画面</h1>
-  <table border="1">
-    <tr>
-      <th>title</th>
-      <th>text</th>
-      <th>image</th>
-      <th>author</th>
-      <th>posted_date</th>
-    </tr>
-    <tr>
-      <td>{{ object.title }}</td>
-      <td>{{ object.text }}</td>
-      <td>{{ object.image }}</td>
-      <td>{{ object.author }}</td>
-      <td>{{ object.posted_date }}</td>
-    </tr>
-  </table>
-</body>
-</html>
+{% extends 'map/base.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="detailContents">
+  <div class="inputFormContainer">
+    <div class="detailNote">
+      <h2 class="detailTitle">{{ note.title }}</h2>
+      <div class="detailImage">
+        {{ note.image }}
+      </div>
+      <div class="detailText">
+        <p>{{ note.text }}</p>
+      </div>
+      <div class="detailInfo">
+        <p>author：{{ note.author }}</p>
+        <p>posted date：{{ note.posted_date }}</p>
+      </div>
+    </div>
+
+    {% for response in response_list %}
+    <div class="detailResponse">
+      <div class="detailResponseText">
+        <p>Re : {{ response.text }}</p>
+      </div>
+      <div class="detailResponseInfo">
+        <p>author：{{ response.author }}</p>
+        <p>posted date：{{ response.posted_date }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="ResponseForm">
+    <form class="" action="" method="POST">{% csrf_token %}
+      {{ form.text }}
+      <button class="responseButton" type="submit" name="next" value="">返信する</button>
+      <input type="hidden" name="note_id" value="{{ note.id }}">
+    </form>
+    </div>
+    <div class="btn-area">
+      <button class="backButton" onclick="location.href='/map/window/';">マップ画面へ戻る</button>
+    </div>
+  </div>
+</div>
+{% endblock contents %}

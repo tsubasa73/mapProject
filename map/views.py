@@ -1,13 +1,13 @@
 import json
 
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.urls import reverse_lazy
-from django.views.generic import View, TemplateView, CreateView, DetailView
+from django.views.generic import View, TemplateView, CreateView
 from django.contrib.gis.geos import Polygon, Point
 
-from .forms import NoteForm
-from .models import Note, Location
+from .forms import NoteForm, ResponseForm
+from .models import Note, Location, Response
 
 
 class MapIndex(TemplateView):
@@ -50,9 +50,11 @@ class MapInput(CreateView):
         lng = self.request.POST.get('lng')
         address = self.request.POST.get('address')
         context = {'form': form, 'lat': lat, 'lng': lng, 'address': address}
+        if self.request.POST.get('next') == 'back_window':
+            return redirect(reverse_lazy('map:window'))
         if self.request.POST.get('next') == 'confirm':
             return render(self.request, 'map/confirm.html', context)
-        elif self.request.POST.get('next') == 'back':
+        elif self.request.POST.get('next') == 'back_input':
             return render(self.request, 'map/input.html', context)
         elif self.request.POST.get('next') == 'create':
             loc_obj = Location.objects.create(point=Point(float(lng), float(lat)), address=address)
@@ -74,6 +76,22 @@ class MapComplete(TemplateView):
     template_name = 'map/complete.html'
 
 
-class MapDetail(DetailView):
+class MapDetail(CreateView):
     template_name = 'map/detail.html'
-    model = Note
+    model = Response
+    form_class = ResponseForm
+    
+    def form_valid(self, form):
+        note_id = self.request.POST.get('note_id')
+        form.instance.response_note = Note.objects.get(id=note_id)
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['note'] = Note.objects.get(id=self.kwargs['pk'])
+        context['response_list'] = Response.objects.filter(response_note__id=self.kwargs['pk'])
+        return context
+
+    def get_success_url(self):
+        return resolve_url('map:detail', pk=self.kwargs['pk'])

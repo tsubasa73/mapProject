@@ -1,24 +1,96 @@
+html,body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック";
+  background-color: #e6e6e6;
 }
 
-#topbar {
-  height: 100px;
+button,a{
+  cursor: pointer;
 }
 
-#sidebar {
-  width: 300px;
-  min-height: 700px;
-  height: 100%;
-  float: left;
+header {
+  top: 0;
+  height: 10%;
+  width: auto;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+footer {
+  width: auto;
+  bottom: 0;
+  height: 10%;
+  color: #fff;
+  background-color: rgb(0, 4, 37);
+  text-align: center;
+  vertical-align: middle;
+}
+
+footer p{
+  line-height: 80px;
+  margin: 0;
+}
+
+h1 {
+  margin: 0 0 0 40px;
+  padding: 0;
+  font-size: 30px;
+}
+
+a {	
+  text-decoration: none;
+  color: #4b4b4b;
+}
+
+nav {
+  margin: 0 0 0 auto;
+}
+
+header ul {
+  list-style: none;
+  margin: 0 30px 0 0;
+}
+
+header li {
+  margin: 5px 0 10px 15px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.logoutButton{
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #f31212;
+  color: #fff;
+  padding: 8px 16px;
+  padding: 5px 8px;
+}
+
+.contents {
+  width: auto;
+  height: 80%;
   background-color: #f4f2ef;
 }
 
-#map { 
-  width: auto;
-  min-height: 700px;
-  height: auto;
-  margin: 0 auto;
+.sidebar {
+  width: 300px;
+  height: 100%;
+  float: left;
+}
+
+/* スマートフォンで見たときは"sp"のclassがついた画像が表示される */
+@media only screen and (max-width: 560px) {
+  .sidebar { display: none !important; }
+}
+
+#map {
+  height: 100%;
 }
 
 .sideContainer {
@@ -33,6 +105,8 @@ body {
   background: none;
   box-sizing: border-box;
   padding: 20px 20px 0;
+  height: 100%;
+  overflow: auto;
 }
 
 .sideContents {
@@ -93,8 +167,7 @@ li.item.selected .detailContainer {
 }
 
 .noteAddress, .noteDetail {
-  margin: 0;
-  padding: 0;
+  margin: 5px;
   font-size: 12px;
   line-height: 1.33;
   padding-left: 15px;
@@ -112,7 +185,6 @@ li.item.selected .detailContainer {
   font-size: 12px;
   text-align: center;
   line-height: 35px;
-  cursor: pointer;
   letter-spacing: normal;
   background: none;
   text-decoration: none;
@@ -130,35 +202,252 @@ li.item.selected .detailContainer {
   margin-left: 20px;
 }
 
-.placeSearchForm{
-  position:relative;/*フォームの相対位置*/	
-  max-width:270px;/*フォームのサイズ*/
-  margin-bottom:10px;/*フォームの下に余白*/	 	
+.infoWindowTitle {
+  margin: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.placeSearchTextBox{
-  position:absolute;/*フォームの絶対位置*/	
-  left:2px;
-  top:0; 	
-  outline:0;/*クリック時の青い枠線消す*/	
-  height:40px;/*検索ボックスの高さ*/	
-  padding:0 10px;/*テキスト位置調整*/	 
-  border: 1px solid;
-  border-radius:2px;/*検索ボックスの角を丸める*/		
-  background:#fff;/*検索ボックスの背景カラー*/		
- }
+.infoWindowAddress {
+  margin: 5px;
+  font-size: 12px;
+  line-height: 1.33;
+  margin-bottom: 0;
+}
 
- .placeSearchButton{
-  width:70px;/*検索ボタンの横幅*/ 
-  height:42px;/*検索ボタンの縦幅*/ 
-  position:absolute;/*検索ボタンの絶対位置*/  
-  right:10px;/*検索ボタンの位置調整*/  
-  top:0;
+.infoWindowDetailButton {
+  margin: 6px 0 0 0;
+}
+
+.infoWindowDetailButton a {
+  font-size: 10px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 25px;
+  display: block;
+  height: 25px;
+  width: 80px;
+  color: #fff;
+  font-weight: bold;
+  background: #c6893f;
+  border-radius: 4px;
+}
+
+form.placeSearchForm {
+  position: relative;
+  max-width: 270px;
+  margin-bottom: 10px;
+}
+
+input.placeSearchTextBox {
+  position: absolute;
+  left: 2px;
+  top: 0; 	
+  outline: 0;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid;
+  border-radius: 2px;
+  background: #fff;
+}
+
+input.placeSearchButton {
+  width: 70px;
+  height: 42px;
+  position: absolute;
+  right: 10px;
+  top: 0;
   cursor: pointer;
-  border-radius:4px;/*検索ボタンの角を丸める*/ 
-  background:#359aff;/*検索ボタンの背景カラー*/ 
-  border:none;/*検索ボタンの枠線を消す*/ 
-  color:#fff;/*検索ボタンのテキストカラー*/ 
-  font-weight:bold;/*検索ボタンのテキスト太字*/ 
-  font-size:15px;/*検索ボタンのフォントサイズ*/ 
+  border-radius: 4px;
+  background: #359aff;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#mylocation {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+  padding: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: 0.5s;
+}
+
+#mylocation:hover {
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  cursor: pointer;
+}
+
+.submitButton {
+  text-align: center;
+  margin: 5px 0 0 0;
+}
+
+.submitButton button {
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #4676D7;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+.inputFormContainer {
+  width: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+form.inputForm {
+  width: 100%;
+  height: 100%;
+}
+
+.inputs {
+  padding: 30px 0;
+  min-height: 50px;
+}
+
+.label {
+  margin-right: 20px;
+  width:135px;
+  border-left: solid 3px #FF6701;
+  padding-left: 10px;
+}
+
+.inputForm input,textarea{
+  width: 100%;
+  border: solid 1px #e0e0e0;
+  border-radius:5px;
+  padding:8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.inputForm input[type="file"] {
+  border: none;
+}
+
+textarea {
+  height: 100px;
+}
+
+.btn-area {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+button.confirmButton {
+  background: #FF6701;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+button.backButton {
+  background: #717171;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+a.backButton {
+  background: #717171;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 12px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+.confirmValue {
+  text-align: center;
+}
+
+.detailContents {
+  width: auto;
+  height: auto;
+  min-height: 80%;
+  background-color: #f4f2ef;
+}
+
+.detailTitle {
+  padding: 0.25em 0.5em;/*上下 左右の余白*/
+  margin: 20px 0;
+  color: #494949;/*文字色*/
+  background: transparent;/*背景透明に*/
+  border-left: solid 3px #FF6701;
+}
+
+.detailText {
+  font-size: 20px;
+  padding: 0 40px;
+  margin: 10px 0;
+  height: 80px;
+}
+
+.detailInfo p{
+  margin: 5px 0;
+  text-align: right;
+}
+
+.detailNote {
+  border-bottom: solid 3px #7e7e7e;
+  padding: 10px;
+}
+
+.detailResponse {
+  border-bottom: solid 1px #7e7e7e;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.detailResponseText{
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  height: 50px;
+}
+
+.detailResponseInfo p{
+  font-size: 15px;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.ResponseForm {
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.ResponseForm button{
+  margin-top: 10px;
+  background: #FF6701;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  border-radius: 10px;
 }

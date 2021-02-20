@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UsernameField
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Note
+from .models import Note, Response
 
 
 class LoginForm(forms.Form):
@@ -60,4 +60,15 @@ class NoteForm(forms.ModelForm):
         self.fields['title'].widget.attrs = {'placeholder': 'タイトル'}
         self.fields['title'].required = True
         self.fields['text'].widget.attrs = {'placeholder': '本文を入力して下さい'}
+        self.fields['text'].required = True
+
+
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = ('text',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['text'].widget.attrs = {'placeholder': 'コメントを記入して下さい'}
         self.fields['text'].required = True

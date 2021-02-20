@@ -1,3 +1,5 @@
+{% load static %}
+
 var map;
 var marker_ary = new Array();
 var data_str = "";
@@ -6,8 +8,44 @@ var clickedMarkerInfoWindow;
 var currentMarker;
 var currentLatLng;
 
+// 現在地マーカーへの移動ボタンを設置
+function addMyLocationButton() {
+  var controlDiv = document.createElement('div');
+
+  var firstChild = document.createElement('button');
+  firstChild.style.backgroundColor = '#fff';
+  firstChild.style.border = 'none';
+  firstChild.style.outline = 'none';
+  firstChild.style.width = '40px';
+  firstChild.style.height = '40px';
+  firstChild.style.borderRadius = '2px';
+  firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+  firstChild.style.cursor = 'pointer';
+  firstChild.style.marginRight = '10px';
+  firstChild.style.padding = '0px';
+  firstChild.title = 'My Location';
+  controlDiv.appendChild(firstChild);
+
+  var secondChild = document.createElement('div');
+  secondChild.style.margin = '0px';
+  secondChild.style.width = '40px';
+  secondChild.style.height = '40px';
+  secondChild.style.backgroundImage = 'url({% static "images/mylocation.svg" %})';
+  secondChild.style.backgroundSize = '40px 40px';
+  secondChild.style.backgroundPosition = '0px 0px';
+  secondChild.style.backgroundRepeat = 'no-repeat';
+  secondChild.id = 'my_location_img';
+  firstChild.appendChild(secondChild);
+
+  firstChild.addEventListener('click', () => {
+    map.panTo(currentLatLng);
+  });
+  controlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+}
+
 // クリックした地点の住所取得処理
-function getClickedAddress(lat_lng, callback) {
+function getClickedAddress(latlng, callback) {
   // 既にマーカーが存在してるなら削除
   if (clickedMarker) {
     clickedMarker.setMap();
@@ -15,11 +53,11 @@ function getClickedAddress(lat_lng, callback) {
   // 位置情報から住所を取得
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({
-    location: lat_lng
+    location: latlng
   }, (results, status) => {
     if (status == google.maps.GeocoderStatus.OK && results[0]) {
       var address = results[0].formatted_address.split(/\s+/)[1];
-      callback(lat_lng, address);
+      callback(latlng, address);
     }
   });
 }
@@ -36,14 +74,14 @@ function searchAddress(input_address, callback) {
     address: input_address
   }, (results, status) => {
     if (status == google.maps.GeocoderStatus.OK && results[0]) {
-      var lat_lng = results[0].geometry.location;
+      var latlng = results[0].geometry.location;
       // 取得した位置情報から詳細な住所情報を取得
       geocoder.geocode({
-        location: lat_lng
+        location: latlng
       }, (results, status) => {
         if (status == google.maps.GeocoderStatus.OK && results[0]) {
           var address = results[0].formatted_address.split(/\s+/)[1];
-          callback(lat_lng, address);
+          callback(latlng, address);
           map.panTo(clickedMarker.getPosition());
         }
       });
@@ -75,8 +113,8 @@ function setClickEventToMarker(index, infoWindow) {
   });
 }
 
-// クリックした位置へのマーカー配置処理
-function setClickedMarker(lat_lng, address){
+// クリックした位置にマーカーを配置
+function setClickedMarker(latlng, address){
   // 既にマーカーが存在してるなら削除
   if (clickedMarker) {
     clickedMarker.setMap();
@@ -84,18 +122,22 @@ function setClickedMarker(lat_lng, address){
 
   // マーカー設置
   clickedMarker = new google.maps.Marker({
-    position: lat_lng,
+    position: latlng,
     map: map,
     animation: google.maps.Animation.DROP,
+    icon: {
+      url: "http://maps.google.co.jp/mapfiles/ms/icons/green-dot.png",
+      scaledSize: new google.maps.Size(40, 40)
+    },
   });
 
   // 情報ウィンドウの中身を作成
-  info_str = `<div>${address}</div>
+  var info_str = `<div>${address}</div>
   <form action="{% url 'map:input' %}" method="POST">{% csrf_token %}
-    <input type="hidden" name="lat" value="${lat_lng.lat()}">
-    <input type="hidden" name="lng" value="${lat_lng.lng()}">
+    <input type="hidden" name="lat" value="${latlng.lat()}">
+    <input type="hidden" name="lng" value="${latlng.lng()}">
     <input type="hidden" name="address" value="${address}">
-    <button type="submit" name="next" >ここで日記を投稿</button>
+    <p class="submitButton"><button type="submit" name="next">日記を投稿</button></p>
   </form>
   `
   // 情報ウィンドウ作成
@@ -115,12 +157,11 @@ function setClickedMarker(lat_lng, address){
     // 開いた情報ウィンドウを記録しておく
     clickedMarkerInfoWindow = infoWindow;
   });
-
   // マーカーをクリックして情報ウィンドウ表示させる
   google.maps.event.trigger(clickedMarker, "click");
 }
 
-// マーカー削除処理
+// マーカー削除
 function clearMarkers() {
   // 表示中のマーカーがあった場合
   if (marker_ary.length > 0) {
@@ -135,7 +176,7 @@ function clearMarkers() {
   }
 }
 
-// マーカー配置処理
+// 画面上にマーカー配置
 function setMarkers(index, value) {
   var markerOpts = {
     map: map,
@@ -144,9 +185,12 @@ function setMarkers(index, value) {
   marker_ary[index] = new google.maps.Marker(markerOpts);
 
   // 情報ウィンドウの文字列を作成
-  info_str = `
-  ${value['title']}<br/>
-  ${value['address']}`;
+  var info_str = `
+  <div class="infoWindowContainer">
+  <p class="infoWindowTitle">${value['title']}</p>
+  <p class="infoWindowAddress">${value['address']}</p>
+  <p class="infoWindowDetailButton"><a onclick="location.href='/map/detail/${value['id']}';">日記を見る</a></p>
+  </div>`;
 
   // 情報ウィンドウ作成
   var infoWindowOpts = {
@@ -171,16 +215,15 @@ function makeNoteList(index, value) {
         <p class="noteDetail">posted date：${value['posted_date']}</p>
         <p class="noteDetail">author：${value['author']}</p>
           <div class="noteSearchButton" style="display: none;">
-          <p class="noteSearchButtonDetail"><a onclick="location.href='/map/detail/${value['id']}';">詳細</a></p>
+          <p class="noteSearchButtonDetail"><a onclick="location.href='/map/detail/${value['id']}';">日記を見る</a></p>
         </div>
       </div>
     </div>
   </li>`
 }
 
-// Ajaxで表示領域の座標を取得＆範囲内のマーカー表示処理
+// 表示領域の座標を取得＆範囲内のマーカーを表示
 function setPointMarker() {
-
   // 地図の範囲内座標を取得
   var bounds = map.getBounds();
   map_ne_lat = bounds.getNorthEast().lat();
@@ -200,10 +243,10 @@ function setPointMarker() {
       map_sw_lng: map_sw_lng,
     },
     timeout: 3000,
-    error: function () {
+    error: () => {
       alert("情報の読み込みに失敗しました");
     },
-    success: function (data) {
+    success: (data) => {
       // 画面内のマーカーに増減がなければ何もしない
       if (data.toString() == data_str){
         return;
@@ -219,12 +262,11 @@ function setPointMarker() {
 
       // 取得したデータの数だけループ
       $.each(data, function(index, value) {
-
         // 画面内にマーカーをセット
         var marker = setMarkers(index, value);
 
         // リスト作成
-        list_str = makeNoteList(index, value);
+        var list_str = makeNoteList(index, value);
         $(".resultNotes").append(list_str);
 
         // リストにクリックイベントを登録
@@ -244,31 +286,30 @@ function setPointMarker() {
   });
 }
 
-// 現在地マーカー定期更新処理
+// 現在地マーカー配置
+function updateCurrentMarker() {
+  if (currentMarker){
+    currentMarker.setMap();
+  }
+  currentMarker = new google.maps.Marker({
+    position: currentLatLng,
+    map: map,
+    icon: {
+      url: "{% static 'images/currentlocation.png' %}",
+      scaledSize: new google.maps.Size(40, 40)
+    },
+  })
+}
+
+// 現在地マーカーの定期更新処理をセット
 function updateCurrentPosition() {
   return new Promise((resolve, reject) => {
     // 位置情報取得に成功したら現在地マーカーを配置
     var success = (position) => {
       currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude, false);
-      if (currentMarker){
-        currentMarker.setMap();
-      }
-      // 現在地マーカーを更新
-      currentMarker = new google.maps.Marker({
-        position: currentLatLng,
-        map: map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-          scaledSize: new google.maps.Size(50, 50)
-        },
-      })
-      var infoWindow = new google.maps.InfoWindow({
-        content: '<div">現在地</div>'
-      });
-      infoWindow.open(map, currentMarker);
+      updateCurrentMarker();
       resolve();
     };
-
     var error = null;
 
     // watchPositionのオプション
@@ -281,7 +322,7 @@ function updateCurrentPosition() {
   })
 }
 
-// 初回現在地取得処理
+// 初回現在地取得
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -291,21 +332,19 @@ function getCurrentPosition() {
     // 位置情報取得に成功したら現在地マーカーを配置
     var success = (position) => {
       currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude, false);
-      resolve();
+      resolve(currentLatLng);
     };
-
     var error = () => {
-      alert("現在地が取得できませんでした");
-      var lat = 35.459933;
-      var lng = 139.6215775;
+      //alert("現在地が取得できませんでした");
+      // 東京駅をデフォルトに設定
+      var lat = 35.6803997;
+      var lng = 139.7690174;
       currentLatLng = new google.maps.LatLng(lat, lng, false);
-      reject();
+      reject(currentLatLng);
     };
-
     // getCurrentPositionのオプション
     var options = {
       timeout: 10000,
-      maximumAge: 10000,
       enableHighAccuracy: false,
     };
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -328,18 +367,10 @@ async function initMap() {
   map = new google.maps.Map(document.getElementById('map'), opts);
 
   // 現在地にマーカー配置
-  currentMarker = new google.maps.Marker({
-    position: currentLatLng,
-    map: map,
-    icon: {
-      url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      scaledSize: new google.maps.Size(50, 50)
-    },
-  })
-  var infoWindow = new google.maps.InfoWindow({
-    content: '<div">現在地</div>'
-  });
-  infoWindow.open(map, currentMarker);
+  updateCurrentMarker(currentLatLng);
+
+  // 現在地マーカーへの移動ボタンを設置
+  addMyLocationButton();
 
   // 現在地マーカーを更新し続ける
   updateCurrentPosition();
@@ -351,15 +382,16 @@ async function initMap() {
   google.maps.event.addListenerOnce(map, 'bounds_changed', () => {
     map.addListener('idle', setPointMarker);
   });
-  
+
   // 検索ボックスの要素を取得
   var input = document.getElementById('placeSearchTextBox');
+
   // オートコンプリートのオプション
   var options = {
       types: ['(regions)'],
       componentRestrictions: {country: 'jp'}
   };
-
+  
   // 検索ボックスにオートコンプリート機能を追加
   var autocomplete = new google.maps.places.Autocomplete(input, options);
   autocomplete.addListener('place_changed', function() {
