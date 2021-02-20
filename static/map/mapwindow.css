@@ -303,7 +303,7 @@ input.placeSearchButton {
 
 .inputFormContainer {
   width: auto;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -414,6 +414,11 @@ a.backButton {
 .detailNote {
   border-bottom: solid 3px #7e7e7e;
   padding: 10px;
+}
+
+.detailImage img{
+  width: 100%;
+  height: 100%;
 }
 
 .detailResponse {

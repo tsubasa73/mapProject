@@ -10,13 +10,15 @@ class LoginForm(forms.Form):
     username = UsernameField(
         label='ユーザー名',
         max_length=255,
-        widget=forms.TextInput(attrs={'placeholder': 'ユーザー名', 'autofocus': True}),
+        widget=forms.TextInput(attrs={'autofocus': True}),
     )
     password = forms.CharField(
         label='パスワード',
         strip=False,
-        widget=forms.PasswordInput(attrs={'placeholder': 'パスワード'}, render_value=True),
+        widget=forms.PasswordInput(render_value=True),
     )
+
+    scroll = forms.CharField(label='スクロール位置')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,9 +30,6 @@ class LoginForm(forms.Form):
 
     def clean_username(self):
         value = self.cleaned_data['username']
-        if len(value) < 3:
-            raise forms.ValidationError(
-                '%(min_length)s文字以上で入力してください', params={'min_length': 3})
         return value
 
     def clean(self):
@@ -39,11 +38,9 @@ class LoginForm(forms.Form):
         try:
             user = get_user_model().objects.get(username=username)
         except ObjectDoesNotExist:
-            raise forms.ValidationError("正しいユーザー名を入力してください")
-        # パスワードはハッシュ化されて保存されているので平文での検索はできない
+            raise forms.ValidationError("正しいユーザー名とパスワードを入力してください")
         if not user.check_password(password):
             raise forms.ValidationError("正しいユーザー名とパスワードを入力してください")
-        # 取得したユーザーオブジェクトを使い回せるように内部に保持しておく
         self.user_cache = user
 
     def get_user(self):

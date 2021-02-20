@@ -86,7 +86,7 @@
   <section class="content-section bg-primary text-white text-center" id="services">
     <div class="container">
       <div class="content-section-heading">
-       <h2 class="mb-5">構成要素</h2>
+        <h2 class="mb-5">構成要素</h2>
       </div>
       <div class="row">
         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
@@ -144,7 +144,7 @@
             <span class="caption">
               <span class="caption-content">
                 <p>好きな場所で記事を投稿</p>
-                <p>現在地、または指定の位置にて<br/>呟きや写真が投稿可能</p>
+                <p>現在地、または指定の位置にて<br />呟きや写真が投稿可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -155,7 +155,7 @@
             <span class="caption">
               <span class="caption-content">
                 <p>記事を閲覧＆返信</p>
-                <p>ユーザの呟きを地図上のマーカーから<br/>閲覧・コメント可能</p>
+                <p>ユーザの呟きを地図上のマーカーから<br />閲覧・コメント可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -166,7 +166,7 @@
             <span class="caption">
               <span class="caption-content">
                 <p>地名検索</p>
-                <p class="mb-0">地名・住所検索により指定の位置まで<br/>移動可能</p>
+                <p class="mb-0">地名・住所検索により指定の位置まで<br />移動可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -186,7 +186,7 @@
       </div>
     </div>
   </section>
-
+  
   <!-- login -->
   <section id="login">
     <div class="content-section-heading text-center">
@@ -201,37 +201,37 @@
             </div>
           </div>
           <div class="card-body">
-            <form>
+            <form action="{% url 'map:login' %}" method="post">{% csrf_token %}
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="username">
+                <input type="text" class="form-control" name="username" id="id_username" placeholder="username">
               </div>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="password">
+                <input type="password" class="form-control" name="password" id="id_password" placeholder="password">
               </div>
-              <div class="row align-items-center remember">
-                <input type="checkbox">Remember Me
+              {% if form.non_field_errors %}
+              <div class="error_message">
+                {% for non_field_error in form.non_field_errors %}
+                {{ non_field_error }}
+                {% endfor %}
               </div>
+              {% endif %}
               <div class="form-group">
                 <input type="submit" value="login" class="btn float-right login_btn">
               </div>
+              <input type="hidden" name="scroll" value="" class="sc">
             </form>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-center links">
-              Don't have an account?<a href="#">Sign Up</a>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
+  
   <!-- Footer -->
   <footer class="footer text-center">
     <div class="container">
@@ -242,10 +242,10 @@
           </a>
         </li>
       </ul>
-      <p class="text-muted small mb-0">Copyright &copy; GeNote 2021</p>
+      <p class="text-muted small mb-0">&copy; 2021 Tsubasa Matsuoka.</p>
     </div>
   </footer>
-
+  
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -260,7 +260,7 @@
 
   <!-- Custom scripts for this template -->
   <script src="{% static 'map/bootstrap/js/stylish-portfolio.min.js' %}"></script>
+  <script type="text/javascript">{% include 'map/login.js' %}</script>
 
 </body>
-
 </html>

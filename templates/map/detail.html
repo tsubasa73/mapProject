@@ -7,7 +7,9 @@
     <div class="detailNote">
       <h2 class="detailTitle">{{ note.title }}</h2>
       <div class="detailImage">
-        {{ note.image }}
+        {% if note.image %}
+          <img src="{{ note.image.url }}">
+        {% endif %}
       </div>
       <div class="detailText">
         <p>{{ note.text }}</p>
@@ -31,7 +33,7 @@
     {% endfor %}
 
     <div class="ResponseForm">
-    <form class="" action="" method="POST">{% csrf_token %}
+    <form class="" action="" method="post">{% csrf_token %}
       {{ form.text }}
       <button class="responseButton" type="submit" name="next" value="">返信する</button>
       <input type="hidden" name="note_id" value="{{ note.id }}">

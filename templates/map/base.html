@@ -8,7 +8,7 @@
     <title>GeNote</title>
 
     <!-- Common CSS -->
-    <link href="{% static 'map/bootstrap/css/mapwindow.css' %}" rel="stylesheet">
+    <link href="{% static 'map/mapwindow.css' %}" rel="stylesheet">
   </head>
 
   <body>
@@ -18,8 +18,8 @@
       </h1>
       <nav>
         <ul>
-          <li><a href="#">ようこそ　{{ user }}さん</a></li>
-          <li><a class="logoutButton" href="#">ログアウト</a></li>
+          <li>ようこそ　{{ user }}さん</li>
+          <li><a class="logoutButton" href="{% url 'map:logout'%}">ログアウト</a></li>
         </ul>
       </nav>
     </header>

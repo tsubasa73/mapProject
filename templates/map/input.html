@@ -4,7 +4,7 @@
 {% block contents %}
 <div class="contents">
   <div class="inputFormContainer">
-  <form class="inputForm" action="" method="POST">{% csrf_token %}
+  <form class="inputForm" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
     {% for field in form %}
     <div class="inputs">
       <label class="label">{{ field.label }}</label>
@@ -13,7 +13,7 @@
     {% endfor %}
     <div class="btn-area">
       <a class="backButton" onclick="location.href='/map/window/';">戻る</a>
-      <button class="confirmButton" type="submit" name="next" value="confirm">確認画面へ</button>
+      <button class="confirmButton" type="submit" name="next" value="create">日記を投稿</button>
     </div>
     <input type="hidden" name="lat" value="{{ lat }}">
     <input type="hidden" name="lng" value="{{ lng }}">

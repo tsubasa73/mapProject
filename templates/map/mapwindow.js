@@ -133,7 +133,7 @@ function setClickedMarker(latlng, address){
 
   // 情報ウィンドウの中身を作成
   var info_str = `<div>${address}</div>
-  <form action="{% url 'map:input' %}" method="POST">{% csrf_token %}
+  <form action="{% url 'map:input' %}" method="post">{% csrf_token %}
     <input type="hidden" name="lat" value="${latlng.lat()}">
     <input type="hidden" name="lng" value="${latlng.lng()}">
     <input type="hidden" name="address" value="${address}">
@@ -335,7 +335,7 @@ function getCurrentPosition() {
       resolve(currentLatLng);
     };
     var error = () => {
-      //alert("現在地が取得できませんでした");
+      alert("現在地が取得できませんでした");
       // 東京駅をデフォルトに設定
       var lat = 35.6803997;
       var lng = 139.7690174;

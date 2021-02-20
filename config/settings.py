@@ -1,18 +1,13 @@
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_NAME = Path(BASE_DIR).name
 
-
 SECRET_KEY = '(lgdu#0@z-8xc21fn_@9k39=8ye$yqxg951=s-c6k2)rv-!qk9'
-
 
 DEBUG = True
 
-
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,7 +21,6 @@ INSTALLED_APPS = [
     'leaflet',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -37,9 +31,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGIN_URL = 'map:login'
+LOGOUT_URL = 'map:logout'
+LOGIN_REDIRECT_URL = 'map:window'
+LOGOUT_REDIRECT_URL = 'map:login'
 
 ROOT_URLCONF = 'config.urls'
-
 
 TEMPLATES = [
     {
@@ -57,9 +54,7 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Postgis settings
 DATABASES = {
@@ -71,7 +66,6 @@ DATABASES = {
        'PASSWORD': 'map_admin',
    }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,21 +82,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ja'
-
 
 TIME_ZONE = 'Asia/Tokyo'
 
-
 USE_I18N = True
-
 
 USE_L10N = True
 
-
 USE_TZ = True
-
 
 # Static files
 STATIC_URL = '/static/'
@@ -111,24 +99,8 @@ STATIC_ROOT = Path(BASE_DIR).joinpath('static_root')
 # STATIC_ROOT = f'/var/www/{PROJECT_NAME}/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = f'/var/www/{PROJECT_NAME}/media'
-
+MEDIA_ROOT = Path(BASE_DIR).joinpath('media_root')
+# MEDIA_ROOT = f'/var/www/{PROJECT_NAME}/media'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-# # debug toolbar
-# if DEBUG:
-#     def show_toolbar(request):
-#         return True
-#
-#     INSTALLED_APPS += (
-#         'debug_toolbar',
-#     )
-#     MIDDLEWARE += (
-#         'debug_toolbar.middleware.DebugToolbarMiddleware',
-#     )
-#     DEBUG_TOOLBAR_CONFIG = {
-#         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-#     }

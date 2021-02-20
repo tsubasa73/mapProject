@@ -19,7 +19,7 @@ class Note(models.Model):
 
     title = models.CharField(verbose_name='タイトル', max_length=255)
     text = models.TextField(verbose_name='本文', null=True, blank=True)
-    image = models.ImageField(verbose_name='画像', null=True, blank=True)
+    image = models.ImageField(verbose_name='画像', upload_to='images/', null=True, blank=True)
     author = models.ForeignKey(get_user_model(), verbose_name='投稿者', on_delete=models.CASCADE)
     posted_date = models.DateTimeField(verbose_name='投稿日時', null=True, blank=True, default=timezone.now)
     location = models.ForeignKey(Location, verbose_name='座標', on_delete=models.PROTECT)
