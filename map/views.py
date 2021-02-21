@@ -20,11 +20,13 @@ class MapLogin(View):
 
     def post(self, request):
         form = LoginForm(request.POST)
+        # 認証に失敗したらログイン画面に戻す
         if not form.is_valid():
-            return render(request, 'map/login.html', {'form': form})
+            anchor = "login"
+            messages.error(request, "正しいユーザー名とパスワードを入力してください")
+            return render(request, 'map/login.html', {'form': form, 'anchor': anchor})
         user = form.get_user()
         login(request, user)
-        messages.info(request, "ログインしました。")
         return redirect(reverse('map:window'))
 
 
@@ -32,8 +34,8 @@ class MapLogout(View):
     def get(self, request):
         if request.user.is_authenticated:
             logout(request)
-        messages.info(request, "ログアウトしました。")
-        return redirect(reverse('map:login'))
+        messages.info(request, "ログアウトしました")
+        return redirect(reverse('map:login') + '#login')
 
 
 class MapWindow(LoginRequiredMixin, TemplateView):

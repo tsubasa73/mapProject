@@ -18,8 +18,6 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(render_value=True),
     )
 
-    scroll = forms.CharField(label='スクロール位置')
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user_cache = None

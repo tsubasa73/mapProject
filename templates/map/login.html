@@ -36,7 +36,7 @@
   <nav id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-        <a class="js-scroll-trigger" href="#page-top">Geodjango Demo Site</a>
+        <a class="js-scroll-trigger" href="#page-top">Top</a>
       </li>
       <li class="sidebar-nav-item">
         <a class="js-scroll-trigger" href="#page-top">ホーム</a>
@@ -59,9 +59,9 @@
   <!-- Header -->
   <header class="masthead d-flex">
     <div class="container text-center my-auto">
-      <h1 class="mb-1">GeoDjango Demo Site</h1>
+      <h1 class="mb-1">GeoDjango Portfolio site</h1>
       <h3 class="mb-5">
-        <em>sns map site using Geodjango</em>
+        <em>location information sharing SNS - GeNote -</em>
       </h3>
     </div>
     <div class="overlay"></div>
@@ -72,8 +72,8 @@
     <div class="container text-center">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <h2>GeoDjangoを用いたマップSNS -GeNote- のデモサイトです。</h2>
-          <p class="lead mb-5">This is a demo site for a sns map using GeoDjango.</p>
+          <h2>これはGeoDjangoで作成された位置情報共有SNS - GeNote - のデモサイトです。</h2>
+          <p class="lead mb-5">This is a demo site of the location information sharing SNS - GeNote - created by GeoDjango.</p>
             <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#services">構成要素</a>
             <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#function">機能概要</a>
             <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#login">ログイン</a>
@@ -107,7 +107,7 @@
           <h4>
             <strong>PostgreSQL & <br>PostGis</strong>
           </h4>
-          <p class="text-faded mb-0">PostgreSQL11+PostGis2.4</p>
+          <p class="text-faded mb-0">PostgreSQL13.1 + PostGis3.1.1</p>
         </div>
         <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
           <span class="service-icon rounded-circle mx-auto mb-3">
@@ -143,8 +143,8 @@
           <a class="portfolio-item">
             <span class="caption">
               <span class="caption-content">
-                <p>好きな場所で記事を投稿</p>
-                <p>現在地、または指定の位置にて<br />呟きや写真が投稿可能</p>
+                <p>どこでも好きな場所から日記を投稿</p>
+                <p>ブラウザやスマホから現在地を取得、現在地を地図上に表示</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -154,8 +154,8 @@
           <a class="portfolio-item">
             <span class="caption">
               <span class="caption-content">
-                <p>記事を閲覧＆返信</p>
-                <p>ユーザの呟きを地図上のマーカーから<br />閲覧・コメント可能</p>
+                <p>投稿した日記をユーザ同士でシェア</p>
+                <p>投稿した日記は地図上にマーカーとして記録され、他のユーザから閲覧・返信が可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -166,7 +166,7 @@
             <span class="caption">
               <span class="caption-content">
                 <p>地名検索</p>
-                <p class="mb-0">地名・住所検索により指定の位置まで<br />移動可能</p>
+                <p class="mb-0">地名・住所検索により指定の位置まで移動可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -176,8 +176,8 @@
           <a class="portfolio-item">
             <span class="caption">
               <span class="caption-content">
-                <p>新着記事の表示</p>
-                <p class="mb-0">ユーザにより投稿された新しい記事を表示</p>
+                <p>レスポンシブ対応</p>
+                <p class="mb-0">PCだけでなく、スマホからも日記の閲覧・投稿が可能</p>
               </span>
             </span>
             <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
@@ -214,24 +214,24 @@
                 </div>
                 <input type="password" class="form-control" name="password" id="id_password" placeholder="password">
               </div>
-              {% if form.non_field_errors %}
-              <div class="error_message">
-                {% for non_field_error in form.non_field_errors %}
-                {{ non_field_error }}
+              {% if messages %}
+              <ul class="messages_ul">
+                {% for message in messages %}
+                <li class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>{{ message }}</li>
                 {% endfor %}
-              </div>
+              </ul>
               {% endif %}
               <div class="form-group">
                 <input type="submit" value="login" class="btn float-right login_btn">
               </div>
-              <input type="hidden" name="scroll" value="" class="sc">
             </form>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
   <!-- Footer -->
   <footer class="footer text-center">
     <div class="container">

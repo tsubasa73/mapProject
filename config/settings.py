@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_NAME = Path(BASE_DIR).name
@@ -6,6 +7,11 @@ PROJECT_NAME = Path(BASE_DIR).name
 SECRET_KEY = '(lgdu#0@z-8xc21fn_@9k39=8ye$yqxg951=s-c6k2)rv-!qk9'
 
 DEBUG = True
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'dark',
+    messages.ERROR: 'danger',
+}
 
 ALLOWED_HOSTS = []
 
