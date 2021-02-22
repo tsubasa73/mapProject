@@ -1,19 +1,27 @@
 from pathlib import Path
+
+import environ
 from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_NAME = Path(BASE_DIR).name
 
-SECRET_KEY = '(lgdu#0@z-8xc21fn_@9k39=8ye$yqxg951=s-c6k2)rv-!qk9'
+# .envファイル読み込み
+env = environ.Env()
+env.read_env(str(Path(BASE_DIR).joinpath('.env')))
 
-DEBUG = True
+DEBUG = False
+
+SECRET_KEY = env('SECRET_KEY')
+
+GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'dark',
     messages.ERROR: 'danger',
 }
-
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,13 +72,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Postgis settings
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.contrib.gis.db.backends.postgis',
-       'NAME': 'map_db',
-       'USER': 'map_admin',
-       'HOST': 'localhost',
-       'PASSWORD': 'map_admin',
-   }
+   'default': env.db()
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -101,12 +103,10 @@ USE_TZ = True
 # Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [Path(BASE_DIR).joinpath('static')]
-STATIC_ROOT = Path(BASE_DIR).joinpath('static_root')
-# STATIC_ROOT = f'/var/www/{PROJECT_NAME}/static'
+STATIC_ROOT = f'/var/www/{PROJECT_NAME}/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = Path(BASE_DIR).joinpath('media_root')
-# MEDIA_ROOT = f'/var/www/{PROJECT_NAME}/media'
+MEDIA_ROOT = f'/var/www/{PROJECT_NAME}/media'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

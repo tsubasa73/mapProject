@@ -9,6 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import View, TemplateView, CreateView
 from django.contrib.gis.geos import Polygon, Point
 
+from config import settings
 from .forms import NoteForm, ResponseForm, LoginForm
 from .models import Note, Location, Response
 
@@ -40,6 +41,12 @@ class MapLogout(View):
 
 class MapWindow(LoginRequiredMixin, TemplateView):
     template_name = 'map/window.html'
+    
+    # Google Maps API Keyをセット
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['api_key'] = settings.GOOGLE_MAPS_API_KEY
+        return context
 
 
 class MapAjax(LoginRequiredMixin, View):
