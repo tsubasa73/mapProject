@@ -22,7 +22,7 @@ class Note(models.Model):
     image = models.ImageField(verbose_name='画像', upload_to='images/', null=True, blank=True)
     author = models.ForeignKey(get_user_model(), verbose_name='投稿者', on_delete=models.CASCADE)
     posted_date = models.DateTimeField(verbose_name='投稿日時', null=True, blank=True, default=timezone.now)
-    location = models.ForeignKey(Location, verbose_name='座標', on_delete=models.PROTECT)
+    location = models.ForeignKey(Location, verbose_name='座標', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

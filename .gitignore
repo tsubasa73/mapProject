@@ -140,3 +140,5 @@ dmypy.json
 # static folder for local env
 static_root/
 media_root/
+static/
+media/

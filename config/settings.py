@@ -115,7 +115,6 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 # Static files settings
-STATICFILES_DIRS = [Path(BASE_DIR).joinpath('static')]
 STATIC_URL = '/static/'
 STATIC_ROOT = f'/var/www/{PROJECT_NAME}/static'
 
