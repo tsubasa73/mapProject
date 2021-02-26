@@ -9,7 +9,7 @@ Google Maps APIを用いた日記投稿サイトです。<br>
 ![スクリーンショット 2021-02-21 17 56 11](https://user-images.githubusercontent.com/22128696/108620230-1d326a80-746e-11eb-8854-4441c14f0f29.png)
 
 # URL
-http://genote-portfolio.com/map/login <br>
+https://www.genote-portfolio.com/map/login <br>
 画面下部のログインフォームからログイン頂けます。<br>
 以下ゲスト用のユーザ情報です。ご自由にログイン、ご投稿下さい。<br>
 username : guest<br>
@@ -55,3 +55,4 @@ MacOSの場合は「システム環境設定 > セキュリティとプライバ
   - 画像投稿機能(ImageField)
   - 位置情報記録機能(PointField)
 - コメント機能(CreateView)
+- SSL通信対応(ドメイン認証)
