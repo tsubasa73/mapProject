@@ -29,7 +29,7 @@ MacOSの場合は「システム環境設定 > セキュリティとプライバ
 - PostgreSQL 12.5
 - PostGis 3.0
 - Maps JavaScript API
-- Amazon Linux 2
+- Ubuntu 20.04.2
 - Nginx
 - Gunicorn
 - AWS
