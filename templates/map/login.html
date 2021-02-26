@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="ja">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>GeNote</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'map/bootstrap/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'map/bootstrap/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'map/bootstrap/vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'map/bootstrap/css/stylish-portfolio.min.css' %}" rel="stylesheet">
+  <link href="{% static 'map/bootstrap/css/login.css' %}" rel="stylesheet" >
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">Top</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">ホーム</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#about">このサイトについて</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">構成要素</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#function">機能概要</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#login">ログイン</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1">GeoDjango Portfolio site</h1>
+      <h3 class="mb-5">
+        <em>location information sharing SNS - GeNote -</em>
+      </h3>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <!-- About -->
+  <section class="content-section bg-light" id="about">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <h2>これはGeoDjangoで作成された位置情報共有SNS<br/>
+            - GeNote - のデモサイトです。</h2>
+          <p class="lead mb-5">This is a demo site of the location information sharing SNS - GeNote - created by GeoDjango.</p>
+            <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#services">構成要素</a>
+            <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#function">機能概要</a>
+            <a class="btn btn-dark btn-xl js-scroll-trigger w-170px" href="#login">ログイン</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+      <div class="content-section-heading">
+        <h2 class="mb-5">構成要素</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="fas fa-mobile-alt"></i>
+          </span>
+          <h4>
+            <strong>Python / Django</strong>
+          </h4>
+          <p class="text-faded mb-0">
+            Python 3.9.0<br>
+            Django 3.1.6</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="fas fa-database"></i>
+          </span>
+          <h4>
+            <strong>PostgreSQL & <br>PostGis</strong>
+          </h4>
+          <p class="text-faded mb-0">PostgreSQL12.5 + PostGis3.0</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="fab fa-google"></i>
+          </span>
+          <h4>
+            <strong>Google Map API</strong>
+          </h4>
+          <p class="text-faded mb-0">Maps JavaScript API<br>Geocoding API<br>Place API<br>
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="fab fa-aws"></i>
+          </span>
+          <h4>
+            <strong>AWS</strong>
+          </h4>
+          <p class="text-faded mb-0">VPC<br>EC2<br>RDS<br>S3<br>Route 53<br></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="content-section" id="function">
+    <div class="container">
+      <div class="content-section-heading text-center">
+        <h2 class="mb-5">機能概要</h2>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-lg-6">
+          <a class="portfolio-item">
+            <span class="caption">
+              <span class="caption-content">
+                <p>どこでも好きな場所から日記を投稿</p>
+                <p>ブラウザやスマホから現在地を取得、現在地を地図上に表示</p>
+              </span>
+            </span>
+            <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a class="portfolio-item">
+            <span class="caption">
+              <span class="caption-content">
+                <p>投稿した日記をユーザ同士でシェア</p>
+                <p>投稿した日記は地図上にマーカーとして記録され、他のユーザから閲覧・返信が可能</p>
+              </span>
+            </span>
+            <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a class="portfolio-item">
+            <span class="caption">
+              <span class="caption-content">
+                <p>地名検索</p>
+                <p class="mb-0">地名・住所検索により指定の位置まで移動可能</p>
+              </span>
+            </span>
+            <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <a class="portfolio-item">
+            <span class="caption">
+              <span class="caption-content">
+                <p>レスポンシブ対応</p>
+                <p class="mb-0">PCだけでなく、スマホからも日記の閲覧・投稿が可能</p>
+              </span>
+            </span>
+            <img class="img-fluid" src="{% static 'map/bootstrap/img/street-map.jpg' %}" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- login -->
+  <section id="login">
+    <div class="content-section-heading text-center">
+      <h2 class="mb-5">GeNote ログイン</h2>
+    </div>
+    <div class="container">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <div class="card-header">
+            <h3>Sign In</h3>
+            <div class="d-flex justify-content-end social_icon">
+            </div>
+          </div>
+          <div class="card-body">
+            <form action="{% url 'map:login' %}" method="post">{% csrf_token %}
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="username" id="id_username" placeholder="username">
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" name="password" id="id_password" placeholder="password">
+              </div>
+              {% if messages %}
+              <ul class="messages_ul">
+                {% for message in messages %}
+                <li class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>{{ message }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+              <div class="form-group">
+                <input type="submit" value="login" class="btn float-right login_btn">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <ul class="list-inline mb-5">
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white" href="https://github.com/tsubasa73/mapProject">
+            <i class="icon-social-github"></i>
+          </a>
+        </li>
+      </ul>
+      <p class="text-muted small mb-0">&copy; 2021 Tsubasa Matsuoka.</p>
+    </div>
+  </footer>
+  
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'map/bootstrap/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'map/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'map/bootstrap/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'map/bootstrap/js/stylish-portfolio.min.js' %}"></script>
+  <script type="text/javascript">{% include 'map/login.js' %}</script>
+
+</body>
+</html>

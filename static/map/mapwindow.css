@@ -1,0 +1,458 @@
+html,body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック";
+  background-color: #e6e6e6;
+}
+
+button,a{
+  cursor: pointer;
+}
+
+header {
+  top: 0;
+  height: 10%;
+  width: auto;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+footer {
+  width: auto;
+  bottom: 0;
+  height: 10%;
+  color: #fff;
+  background-color: rgb(0, 4, 37);
+  text-align: center;
+  vertical-align: middle;
+}
+
+footer p{
+  line-height: 80px;
+  margin: 0;
+}
+
+h1 {
+  margin: 0 0 0 40px;
+  padding: 0;
+  font-size: 30px;
+}
+
+a {	
+  text-decoration: none;
+  color: #4b4b4b;
+}
+
+nav {
+  margin: 0 0 0 auto;
+}
+
+header ul {
+  list-style: none;
+  margin: 0 30px 0 0;
+}
+
+header li {
+  margin: 5px 0 10px 15px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.logoutButton{
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #f31212;
+  color: #fff;
+  padding: 8px 16px;
+  padding: 5px 8px;
+}
+
+.contents {
+  width: auto;
+  height: 80%;
+  background-color: #f4f2ef;
+}
+
+.sidebar {
+  width: 300px;
+  height: 100%;
+  float: left;
+}
+
+/* スマートフォンで見たときは"sp"のclassがついた画像が表示される */
+@media only screen and (max-width: 560px) {
+  .sidebar { display: none !important; }
+}
+
+#map {
+  height: 100%;
+}
+
+.sideContainer {
+  font-size: 10px;
+  color: #3d3935;
+  word-break: normal;
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  outline: 0;
+  border: none;
+  background: none;
+  box-sizing: border-box;
+  padding: 20px 20px 0;
+  height: 100%;
+  overflow: auto;
+}
+
+.sideContents {
+  width: 260px;
+  padding: 0;
+}
+
+.searchForm {
+  font-size: 120%;
+  height: 50px;
+  padding: 15px 0;
+}
+
+.resultNotes {
+  width: 260px;
+  color: #3d3935;
+  word-break: normal;
+  font-size: 120%;
+  list-style: none;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  outline: 0;
+  border: none;
+  background-color: #fff;
+}
+
+li.item {
+  font-size: 100%;
+  padding: 13px 0;
+  cursor: pointer;
+  background: url("/static/images/list-border.png") left bottom no-repeat;
+}
+
+li.item.selected{
+  cursor: default;
+}
+
+.detailContainer {
+  padding: 0;
+  background: none;
+  margin: 0 15px;
+  margin-left: 0;
+}
+
+li.item.selected .detailContainer {
+  border-left: 10px solid #3d3935;
+}
+
+.noteTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 3px 0 0 15px;
+  margin-bottom: 5px;
+}
+
+.noteAddress, .noteDetail {
+  margin: 5px;
+  font-size: 12px;
+  line-height: 1.33;
+  padding-left: 15px;
+  margin-bottom: 0;
+}
+
+.noteSearchButton {
+  font-size: 100%;
+  overflow: hidden;
+  text-align: right;
+  letter-spacing: -1em;
+}
+
+.noteSearchButton a {
+  font-size: 12px;
+  text-align: center;
+  line-height: 35px;
+  letter-spacing: normal;
+  background: none;
+  text-decoration: none;
+  display: block;
+  width: 100px;
+  height: 35px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #c6893f;
+  border-radius: 4px;
+}
+
+.noteSearchButtonDetail {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.infoWindowTitle {
+  margin: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.infoWindowAddress {
+  margin: 5px;
+  font-size: 12px;
+  line-height: 1.33;
+  margin-bottom: 0;
+}
+
+.infoWindowDetailButton {
+  margin: 6px 0 0 0;
+}
+
+.infoWindowDetailButton a {
+  font-size: 10px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 25px;
+  display: block;
+  height: 25px;
+  width: 80px;
+  color: #fff;
+  font-weight: bold;
+  background: #c6893f;
+  border-radius: 4px;
+}
+
+form.placeSearchForm {
+  position: relative;
+  max-width: 270px;
+  margin-bottom: 10px;
+}
+
+input.placeSearchTextBox {
+  position: absolute;
+  left: 2px;
+  top: 0; 	
+  outline: 0;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid;
+  border-radius: 2px;
+  background: #fff;
+}
+
+input.placeSearchButton {
+  width: 70px;
+  height: 42px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #359aff;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#mylocation {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+  padding: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: 0.5s;
+}
+
+#mylocation:hover {
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  cursor: pointer;
+}
+
+.submitButton {
+  text-align: center;
+  margin: 5px 0 0 0;
+}
+
+.submitButton button {
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #4676D7;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+.inputFormContainer {
+  width: auto;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+form.inputForm {
+  width: 100%;
+  height: 100%;
+}
+
+.inputs {
+  padding: 30px 0;
+  min-height: 50px;
+}
+
+.label {
+  margin-right: 20px;
+  width:135px;
+  border-left: solid 3px #FF6701;
+  padding-left: 10px;
+}
+
+.inputForm input,textarea{
+  width: 100%;
+  border: solid 1px #e0e0e0;
+  border-radius:5px;
+  padding:8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.inputForm input[type="file"] {
+  border: none;
+}
+
+textarea {
+  height: 100px;
+}
+
+.btn-area {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+button.confirmButton {
+  background: #FF6701;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+button.backButton {
+  background: #717171;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+a.backButton {
+  background: #717171;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 12px 20px;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+.confirmValue {
+  text-align: center;
+}
+
+.detailContents {
+  width: auto;
+  height: auto;
+  min-height: 80%;
+  background-color: #f4f2ef;
+}
+
+.detailTitle {
+  padding: 0.25em 0.5em;/*上下 左右の余白*/
+  margin: 20px 0;
+  color: #494949;/*文字色*/
+  background: transparent;/*背景透明に*/
+  border-left: solid 3px #FF6701;
+}
+
+.detailText {
+  font-size: 20px;
+  padding: 0 40px;
+  margin: 10px 0;
+  height: 80px;
+}
+
+.detailInfo p{
+  margin: 5px 0;
+  text-align: right;
+}
+
+.detailNote {
+  border-bottom: solid 3px #7e7e7e;
+  padding: 10px;
+}
+
+.detailImage img{
+  width: 100%;
+  height: 100%;
+}
+
+.detailResponse {
+  border-bottom: solid 1px #7e7e7e;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.detailResponseText{
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  height: 50px;
+}
+
+.detailResponseInfo p{
+  font-size: 15px;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.ResponseForm {
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.ResponseForm button{
+  margin-top: 10px;
+  background: #FF6701;
+  border: none;
+  color: #fff;
+  font-size:15px;
+  font-weight:bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+}

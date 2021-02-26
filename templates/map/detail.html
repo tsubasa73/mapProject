@@ -1,0 +1,47 @@
+{% extends 'map/base.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="detailContents">
+  <div class="inputFormContainer">
+    <div class="detailNote">
+      <h2 class="detailTitle">{{ note.title }}</h2>
+      <div class="detailImage">
+        {% if note.image %}
+          <img src="{{ note.image.url }}">
+        {% endif %}
+      </div>
+      <div class="detailText">
+        <p>{{ note.text }}</p>
+      </div>
+      <div class="detailInfo">
+        <p>author：{{ note.author }}</p>
+        <p>posted date：{{ note.posted_date }}</p>
+      </div>
+    </div>
+
+    {% for response in response_list %}
+    <div class="detailResponse">
+      <div class="detailResponseText">
+        <p>Re : {{ response.text }}</p>
+      </div>
+      <div class="detailResponseInfo">
+        <p>author：{{ response.author }}</p>
+        <p>posted date：{{ response.posted_date }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="ResponseForm">
+    <form class="" action="" method="post">{% csrf_token %}
+      {{ form.text }}
+      <button class="responseButton" type="submit" name="next" value="">返信する</button>
+      <input type="hidden" name="note_id" value="{{ note.id }}">
+    </form>
+    </div>
+    <div class="btn-area">
+      <button class="backButton" onclick="location.href='/map/window/';">マップ画面へ戻る</button>
+    </div>
+  </div>
+</div>
+{% endblock contents %}

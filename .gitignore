@@ -136,3 +136,9 @@ dmypy.json
 # macOS + PyCharm
 .DS_Store
 .idea/
+
+# static folder for local env
+static_root/
+media_root/
+static/
+media/
