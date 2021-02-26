@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'map.apps.MapConfig',
     'leaflet',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -103,9 +104,22 @@ USE_TZ = True
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Amazon settings
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
 # Static files settings
+STATICFILES_DIRS = [Path(BASE_DIR).joinpath('static')]
 STATIC_URL = '/static/'
 STATIC_ROOT = f'/var/www/{PROJECT_NAME}/static'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = f'/var/www/{PROJECT_NAME}/media'
+# Media files settings
+PUBLIC_MEDIA_LOCATION = 'media'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+DEFAULT_FILE_STORAGE = 'config.storage_backends.MediaStorage'
